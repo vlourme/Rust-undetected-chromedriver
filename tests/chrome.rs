@@ -6,6 +6,7 @@ mod tests {
     #[tokio::test]
     async fn test_chrome() {
         let driver = chrome().await.unwrap();
+
         assert!(driver.title().await.is_ok());
         driver.quit().await.unwrap();
     }

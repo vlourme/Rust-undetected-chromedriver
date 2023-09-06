@@ -3,7 +3,7 @@ mod tests {
     use thirtyfour::prelude::{ElementQueryable, ElementWaitable};
     use thirtyfour::By;
     use tokio;
-    use undetected_chromedriver::chrome;
+    use undetected_chromedriver::UndetectedWebDriver;
 
     async fn get_score(driver: &thirtyfour::WebDriver) -> Option<f32> {
         driver
@@ -39,7 +39,9 @@ mod tests {
 
     #[tokio::test]
     async fn recaptcha() {
-        let driver = chrome().await.unwrap();
+        let mut uwd = UndetectedWebDriver::new().await.unwrap();
+        let driver = uwd.start_driver().await.unwrap();
+
         let score = get_score(&driver).await;
         assert!(score.unwrap_or(0.0) >= 0.7);
         driver.quit().await.unwrap();

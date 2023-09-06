@@ -19,12 +19,12 @@ undetected-chromedriver = "0.1.0"
 Here's an example of how you can use the undetected chromedriver in your Rust project:
 
 ```rust
-use undetected_chromedriver::chrome;
+use undetected_chromedriver::UndetectedWebDriver;
 use tokio;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let driver = chrome().await?;
+    let driver = UndetectedWebDriver::new_driver().await?;
 
     driver.goto("https://www.rust-lang.org/").await?;
 
